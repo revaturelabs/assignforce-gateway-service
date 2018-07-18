@@ -15,7 +15,7 @@ import com.auth0.jwt.interfaces.Verification;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 
-@Component
+//@Component
 public class AuthenticationFilter extends ZuulFilter {
 
     private static final String TRAINER_EDITABLE = "trainer-service";
