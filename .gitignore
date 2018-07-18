@@ -138,6 +138,7 @@ Servers/
 */target/*
 */target/**
 */target/
+target/*
 
 #two files really don't want to cooperate 
 
