@@ -1,5 +1,8 @@
 package com.revature.assignforce;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
@@ -24,10 +27,12 @@ public class GatewayServerApplication {
 	
 	@Bean
 	public CorsFilter corsFilter() {
+		List<String> origins = new ArrayList<>();
+		origins.add("*");
 	    final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 	    final CorsConfiguration config = new CorsConfiguration();
 	    config.setAllowCredentials(true);
-	    config.addAllowedOrigin("*");
+	    config.setAllowedOrigins(origins);
 	    config.addAllowedHeader("*");
 	    config.addAllowedMethod("OPTIONS");
 	    config.addAllowedMethod("HEAD");
