@@ -4,8 +4,7 @@ import java.security.interfaces.RSAPublicKey;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.stereotype.Component;
-
+import com.auth0.jwk.JwkException;
 import com.auth0.jwk.JwkProvider;
 import com.auth0.jwk.UrlJwkProvider;
 import com.auth0.jwt.JWT;
@@ -15,7 +14,6 @@ import com.auth0.jwt.interfaces.Verification;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 
-//@Component
 public class AuthenticationFilter extends ZuulFilter {
 
     private static final String TRAINER_EDITABLE = "trainer-service";
@@ -48,22 +46,17 @@ public class AuthenticationFilter extends ZuulFilter {
 		HttpServletRequest request = ctx.getRequest();
 
 		String token = request.getHeader(HEADER_STRING);
-        System.out.println(token);
         
         if (token != null) {
         	if (token.startsWith(TOKEN_PREFIX)) {
         		token = token.substring(TOKEN_PREFIX.length());
         	}
-        	
-        	System.out.println(request.getContextPath());
-        	
+        	        	
         	boolean requireSVP = true;
         	
-        	if (request.getMethod().equals("GET") || request.getMethod().equals("OPTIONS")) {
+        	if (request.getMethod().equals("GET") || request.getMethod().equals("OPTIONS") || request.getRequestURL().toString().contains(TRAINER_EDITABLE)) {
         		requireSVP = false;
-        	} else if (request.getRequestURL().toString().contains(TRAINER_EDITABLE)) {
-        		requireSVP = false;
-        	}
+        	} 
         	
         	if (!authenticate(token, requireSVP)) {
         		forbidden(ctx, "Unauthorized");
@@ -94,20 +87,15 @@ public class AuthenticationFilter extends ZuulFilter {
     			error = requireSVP;
     			
     			for (String s : roles) {
-    				System.out.println(s);
     				if (SVP.equals(s)) {
     					error = false;
     					break;
     				}
     			}
     			
-    			if (error) {
-    				throw new Exception("failed to authenticate user");
-    			}
     		}
     		
-    	} catch (Exception e) {
-    		System.out.println(e.getMessage());
+    	} catch (JwkException e) {
     		error = true;
     	}
     	
