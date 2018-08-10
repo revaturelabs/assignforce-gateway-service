@@ -2,7 +2,6 @@
 applications:
   - name: rev-gateway
     memory: 1024M
-    timeout: 80
     services:
       - rabbit-mq-rev
       - discovery-rev
