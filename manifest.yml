@@ -5,4 +5,3 @@ applications:
     services:
       - rabbit-mq-rev
       - discovery-rev
-      - config-rev
