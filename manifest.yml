@@ -3,5 +3,4 @@ applications:
   - name: rev-gateway
     memory: 1024M
     services:
-      - rabbit-mq-rev
       - discovery-rev
