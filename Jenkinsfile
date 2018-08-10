@@ -24,6 +24,7 @@ pipeline {
                 }
                 stage('Code Scan') {
                   steps {
+                    
                     sh 'echo "run quality gate"'
                   }
                 }
