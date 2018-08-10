@@ -11,7 +11,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 		<docker.image.prefix>ajduet</docker.image.prefix>
-		<app.name>af-batches</app.name>
+		<app.name>af-gateway</app.name>
 		<spring-cloud-services.version>2.0.1.RELEASE</spring-cloud-services.version>
 		<spring-cloud.version>Finchley.SR1</spring-cloud.version>
 	</properties>
