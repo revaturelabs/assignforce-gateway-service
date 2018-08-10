@@ -1,7 +1,7 @@
 ---
 applications:
   - name: rev-gateway
-    memory: 4G
-    timeout: 180
+    memory: 3G
+    timeout: 120
     services:
       - discovery-rev
