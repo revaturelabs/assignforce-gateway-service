@@ -24,7 +24,7 @@ pipeline {
                 }
                 stage('Code Scan') {
                   steps {
-                    
+                    slackSend "Test Build"
                     sh 'echo "run quality gate"'
                   }
                 }
