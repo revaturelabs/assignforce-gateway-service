@@ -25,7 +25,7 @@ pipeline {
                 stage('Code Scan') {
                   steps {
                     script {
-                        slackSend "Started ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)
+                        slackSend "Started ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
                     }
                     sh 'echo "run quality gate"'
                   }
