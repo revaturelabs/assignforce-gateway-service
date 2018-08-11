@@ -121,10 +121,8 @@ docker image rm $DK_U/$APP_NAME:$DK_TAG'''
     }
     post {
         success {
-            failure {
-                script {
-                    slackSend color: "danger", message: "Build Failed: ${env.JOB_NAME} ${env.BUILD_NUMBER}"
-                }
+            script {
+                slackSend color: "danger", message: "Build Failed: ${env.JOB_NAME} ${env.BUILD_NUMBER}"
             }
         }
         failure {
