@@ -33,7 +33,9 @@ pipeline {
                   steps {
                     script {
                         try {
-                            slackSend "Started ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
+                            sh "git log -1 > commit"
+                            commitMsg = readFile("./commit").trim()
+                            slackSend "Started ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>) - Commit: ${commitMsg}"
                             sh 'echo "run quality gate"'
                         } catch(Exception e) {
                             env.FAIL_STG='Code Scan'
