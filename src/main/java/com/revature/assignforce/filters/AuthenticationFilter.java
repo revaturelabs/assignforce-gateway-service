@@ -21,7 +21,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class AuthenticationFilter extends ZuulFilter {
 
-	private Logger logger = LoggerFactory.getLogger(AuthenticationFilter.class);
+	private static Logger logger = LoggerFactory.getLogger(AuthenticationFilter.class);
 
     private static final String TRAINER_EDITABLE = "trainer-service";
 	private static final String AUDIENCE = "hydra-gateway";
@@ -49,12 +49,14 @@ public class AuthenticationFilter extends ZuulFilter {
 
 	@Override
 	public Object run() {
+		logger.info("Starting Auth Filter");
 		RequestContext ctx = RequestContext.getCurrentContext();
 		HttpServletRequest request = ctx.getRequest();
 
 		String token = request.getHeader(HEADER_STRING);
         
         if (token != null) {
+			logger.info("Token Found on Header");
         	if (token.startsWith(TOKEN_PREFIX)) {
         		token = token.substring(TOKEN_PREFIX.length());
         	}
@@ -62,7 +64,8 @@ public class AuthenticationFilter extends ZuulFilter {
         	boolean requireSVP = true;
         	
         	if (request.getMethod().equals("GET") || request.getMethod().equals("OPTIONS") || request.getRequestURL().toString().contains(TRAINER_EDITABLE)) {
-        		requireSVP = false;
+				logger.info("Request doesn't require SVP");
+				requireSVP = false;
         	} 
         	
         	if (!authenticate(token, requireSVP)) {
@@ -111,6 +114,7 @@ public class AuthenticationFilter extends ZuulFilter {
     }
     
 	private static void forbidden(RequestContext ctx, String message) {
+		logger.info("Request not allowed " + message);
 		ctx.setResponseStatusCode(403);
 		ctx.setResponseBody(message);
 		ctx.setSendZuulResponse(false);
