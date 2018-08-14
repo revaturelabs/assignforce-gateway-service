@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @SpringBootApplication
 @EnableZuulProxy
 @EnableDiscoveryClient
-@CrossOrigin
 @EnableWebSecurity
 public class GatewayServerApplication {
 	
