@@ -49,7 +49,7 @@ public class AuthenticationFilter extends ZuulFilter {
 
 	@Override
 	public Object run() {
-		logger.warn("Starting Auth Filter");
+		System.out.println("Starting Auth Filter");
 		RequestContext ctx = RequestContext.getCurrentContext();
 		HttpServletRequest request = ctx.getRequest();
 
