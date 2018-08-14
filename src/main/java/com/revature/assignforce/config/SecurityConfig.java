@@ -21,7 +21,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
             .cors().disable()
             .authorizeRequests()
-            .antMatchers("/*").authenticated();
+            .antMatchers("/*/**").authenticated();
 
         JwtWebSecurityConfigurer
             .forRS256(audience, issuer)
