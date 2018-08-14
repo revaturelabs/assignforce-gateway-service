@@ -62,9 +62,11 @@ public class AuthenticationFilter extends ZuulFilter {
         	} 
         	
         	if (!authenticate(token, requireSVP)) {
+				System.out.println("not auth");
         		forbidden(ctx, "Unauthorized");
         	}
         } else {
+			System.out.println("No Auth");
 			forbidden(ctx, "No Authorization"); 		
 		}
 		
