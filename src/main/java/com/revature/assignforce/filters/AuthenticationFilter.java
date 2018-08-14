@@ -44,8 +44,12 @@ public class AuthenticationFilter extends ZuulFilter {
 
 	@Override
 	public boolean shouldFilter() {
-		System.out.println("Should Filter");
-		logger.error("Should filter");
+		RequestContext ctx = RequestContext.getCurrentContext();
+		HttpServletRequest req = ctx.getRequest();
+
+		if(req.getMethod().equals("OPTIONS")) {
+			return false;
+		}
 		return true;
 	}
 
