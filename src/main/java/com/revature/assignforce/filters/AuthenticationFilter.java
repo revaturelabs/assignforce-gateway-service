@@ -49,14 +49,14 @@ public class AuthenticationFilter extends ZuulFilter {
 
 	@Override
 	public Object run() {
-		logger.info("Starting Auth Filter");
+		logger.warn("Starting Auth Filter");
 		RequestContext ctx = RequestContext.getCurrentContext();
 		HttpServletRequest request = ctx.getRequest();
 
 		String token = request.getHeader(HEADER_STRING);
         
         if (token != null) {
-			logger.info("Token Found on Header");
+			logger.warn("Token Found on Header");
         	if (token.startsWith(TOKEN_PREFIX)) {
         		token = token.substring(TOKEN_PREFIX.length());
         	}
@@ -64,16 +64,16 @@ public class AuthenticationFilter extends ZuulFilter {
         	boolean requireSVP = true;
         	
         	if (request.getMethod().equals("GET") || request.getMethod().equals("OPTIONS") || request.getRequestURL().toString().contains(TRAINER_EDITABLE)) {
-				logger.info("Request doesn't require SVP");
+				logger.warn("Request doesn't require SVP");
 				requireSVP = false;
         	} 
         	
         	if (!authenticate(token, requireSVP)) {
-				logger.info("not auth");
+				logger.warn("not auth");
         		forbidden(ctx, "Unauthorized");
         	}
         } else {
-			logger.info("No Auth");
+			logger.warn("No Auth");
 			forbidden(ctx, "No Authorization"); 		
 		}
 		return null;
@@ -114,7 +114,7 @@ public class AuthenticationFilter extends ZuulFilter {
     }
     
 	private static void forbidden(RequestContext ctx, String message) {
-		logger.info("Request not allowed " + message);
+		logger.warn("Request not allowed " + message);
 		ctx.setResponseStatusCode(403);
 		ctx.setResponseBody(message);
 		ctx.setSendZuulResponse(false);
