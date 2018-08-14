@@ -14,10 +14,14 @@ import com.auth0.jwt.interfaces.Verification;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import org.springframework.stereotype.Component;
 
 @Component
 public class AuthenticationFilter extends ZuulFilter {
+
+	private Logger logger = LoggerFactory.getLogger(AuthenticationFilter.class);
 
     private static final String TRAINER_EDITABLE = "trainer-service";
 	private static final String AUDIENCE = "hydra-gateway";
@@ -62,14 +66,13 @@ public class AuthenticationFilter extends ZuulFilter {
         	} 
         	
         	if (!authenticate(token, requireSVP)) {
-				System.out.println("not auth");
+				logger.info("not auth");
         		forbidden(ctx, "Unauthorized");
         	}
         } else {
-			System.out.println("No Auth");
+			logger.info("No Auth");
 			forbidden(ctx, "No Authorization"); 		
 		}
-		
 		return null;
 	}
 
