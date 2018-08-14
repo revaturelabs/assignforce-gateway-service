@@ -44,6 +44,8 @@ public class AuthenticationFilter extends ZuulFilter {
 
 	@Override
 	public boolean shouldFilter() {
+		System.out.println("Should Filter");
+		logger.error("Should filter");
 		return true;
 	}
 
