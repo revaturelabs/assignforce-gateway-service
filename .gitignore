@@ -7,6 +7,9 @@
 /tmp
 /out-tsc
 
+.vscode/
+*.iml
+
 # dependencies
 node_modules
 
@@ -143,3 +146,5 @@ target/*
 #two files really don't want to cooperate 
 
 JDBC/target/
+
+*.iml
