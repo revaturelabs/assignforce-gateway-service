@@ -7,13 +7,15 @@ pipeline {
 
     stages {
         stage('Build Context'){
-            script {
-                debug = sh(script: "git log -1 | grep -c '\\[debug\\]'", returnStatus: true)
-                if(debug == 0) {
-                    env.DEBUG_BLD = 1;
-                }
+            steps {
+                script {
+                    debug = sh(script: "git log -1 | grep -c '\\[debug\\]'", returnStatus: true)
+                    if(debug == 0) {
+                        env.DEBUG_BLD = 1;
+                    }
 
-                sh /opt/login.sh
+                    sh /opt/login.sh
+                }
             }
         }
 
