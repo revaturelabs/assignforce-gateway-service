@@ -170,6 +170,11 @@ pipeline {
         }
     }
     post {
+        always {
+            script {
+                sh 'cf logout'
+            }
+        }
         success {
             script {
                 slackSend color: "good", message: "Build Succeeded: ${env.JOB_NAME} ${env.BUILD_NUMBER}"
