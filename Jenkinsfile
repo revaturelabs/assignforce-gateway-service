@@ -6,20 +6,23 @@ pipeline {
     }
 
     stages {
+        stage('Build Context'){
+            script {
+                debug = sh(script: "git log -1 | grep -c '\\[debug\\]'", returnStatus: true)
+                if(debug == 0) {
+                    env.DEBUG_BLD = 1;
+                }
+
+                sh /opt/login.sh
+            }
+        }
+
         stage('Quality Check') {
             parallel {
                 stage('Unit Tests') {
                   steps {
                     script {
                         try {
-                            result = sh(script: "git log -1 | grep -c '\\[debug\\]'", returnStatus: true)
-                            if(result == 0 ) {
-                                sh 'echo running debug build'
-                                env.DEBUG_BLD=1
-                            } else {
-                                sh 'echo not running debug build'
-                            }
-
                             sh 'echo "run mvn test"'
                             sh "mvn test"
                         } catch(Exception e) {
