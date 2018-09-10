@@ -3,6 +3,8 @@ pipeline {
     environment {
         APP_NAME="rev-gateway"
         IMG_NAME="af-gateway"
+        PROD_DOM=$APP_NAME".revaturecf.com"
+        DEV_DOM=$APP_NAME".cfapps.io"
     }
 
     stages {
@@ -144,14 +146,16 @@ pipeline {
                             env.SPACE = "master"
                             env.IMG="${env.DK_U}/${env.IMG_NAME}:latest"
                             env.PROFILE="master"
+                            env.DOMAIN=env.PROD_DOMAIN
                         } else if(env.BRANCH_NAME == 'development' || env.DEBUG_BLD == '1') {
                             env.SPACE = "development"
                             env.IMG="${env.DK_U}/${env.IMG_NAME}:dev-latest"
                             env.PROFILE="development"
+                            env.DOMAIN=env.DEV_DOMAIN
                         }
                         env.CF_DOCKER_PASSWORD=readFile("/run/secrets/CF_DOCKER_PASSWORD").trim()
                         sh "cf target -s ${env.SPACE}"
-                        sh "cf push -o ${env.IMG} --docker-username ${env.DK_U} --no-start"
+                        sh "cf push -o ${env.IMG} --docker-username ${env.DK_U} --no-start -d ${env.DOMAIN}"
                         sh "cf set-env ${env.APP_NAME} SPRING_PROFILES_ACTIVE ${env.PROFILE}"
                         sh "cf start ${env.APP_NAME}"
                     } catch(Exception e) {
