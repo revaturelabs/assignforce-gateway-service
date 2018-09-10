@@ -3,8 +3,8 @@ pipeline {
     environment {
         APP_NAME="rev-gateway"
         IMG_NAME="af-gateway"
-        PROD_DOM=$APP_NAME".revaturecf.com"
-        DEV_DOM=$APP_NAME".cfapps.io"
+        PROD_DOM="${APP_NAME}.revaturecf.com"
+        DEV_DOM="${APP_NAME}.cfapps.io"
     }
 
     stages {
