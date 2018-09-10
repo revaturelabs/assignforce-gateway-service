@@ -3,8 +3,8 @@ pipeline {
     environment {
         APP_NAME="rev-gateway"
         IMG_NAME="af-gateway"
-        PROD_DOM="${APP_NAME}.revaturecf.com"
-        DEV_DOM="${APP_NAME}.cfapps.io"
+        PROD_DOM=".revaturecf.com"
+        DEV_DOM=".cfapps.io"
     }
 
     stages {
@@ -146,12 +146,12 @@ pipeline {
                             env.SPACE = "master"
                             env.IMG="${env.DK_U}/${env.IMG_NAME}:latest"
                             env.PROFILE="master"
-                            env.DOMAIN=env.PROD_DOMAIN
+                            env.DOMAIN="${env.APP_NAME}${env.PROD_DOMAIN}"
                         } else if(env.BRANCH_NAME == 'development' || env.DEBUG_BLD == '1') {
                             env.SPACE = "development"
                             env.IMG="${env.DK_U}/${env.IMG_NAME}:dev-latest"
                             env.PROFILE="development"
-                            env.DOMAIN=env.DEV_DOMAIN
+                            env.DOMAIN="${env.APP_NAME}${env.DEV_DOMAIN}"
                         }
                         env.CF_DOCKER_PASSWORD=readFile("/run/secrets/CF_DOCKER_PASSWORD").trim()
                         sh "cf target -s ${env.SPACE}"
