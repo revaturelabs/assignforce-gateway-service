@@ -146,12 +146,12 @@ pipeline {
                             env.SPACE = "master"
                             env.IMG="${env.DK_U}/${env.IMG_NAME}:latest"
                             env.PROFILE="master"
-                            env.DOMAIN="${env.APP_NAME}${env.PROD_DOM}"
+                            env.DOMAIN="${env.PROD_DOM}"
                         } else if(env.BRANCH_NAME == 'development' || env.DEBUG_BLD == '1') {
                             env.SPACE = "development"
                             env.IMG="${env.DK_U}/${env.IMG_NAME}:dev-latest"
                             env.PROFILE="development"
-                            env.DOMAIN="${env.APP_NAME}${env.DEV_DOM}"
+                            env.DOMAIN="${env.DEV_DOM}"
                         }
                         env.CF_DOCKER_PASSWORD=readFile("/run/secrets/CF_DOCKER_PASSWORD").trim()
                         sh "cf target -s ${env.SPACE}"
