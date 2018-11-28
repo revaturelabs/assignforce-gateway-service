@@ -1,5 +1,5 @@
 package com.revature.assignforce.filters;
-
+/*
 import com.auth0.jwt.exceptions.SignatureVerificationException;
 import com.netflix.zuul.context.RequestContext;
 import com.revature.assignforce.filters.AuthenticationFilter;
@@ -28,7 +28,7 @@ public class AuthenticationFilterTest
     Test Explanation:
     Its testing whether or not the token is valid, this is the first if statement.
     It's testing to make sure that the token is correct.
-     */
+
     @Test(expected = SignatureVerificationException.class)
     public void run() {
         RequestContext requestContext = mock(RequestContext.class);
@@ -44,3 +44,4 @@ public class AuthenticationFilterTest
     }
 
 }
+ */

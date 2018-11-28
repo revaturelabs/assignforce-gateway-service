@@ -5,7 +5,7 @@ pipeline {
         IMG_NAME="af-gateway"
         PROD_DOM="revaturecf.com"
         DEV_DOM="cfapps.io"
-        CF_ORG="Revature Training"
+        CF_ORG="'Revature Training'"
     }
 
     stages {
