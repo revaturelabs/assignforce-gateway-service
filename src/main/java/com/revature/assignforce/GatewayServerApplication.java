@@ -31,7 +31,6 @@ public class GatewayServerApplication {
 		final CorsConfiguration config = new CorsConfiguration();
 		config.setAllowCredentials(true);
 		config.addAllowedOrigin("https://assignforce.cfapps.io");
-		config.addAllowedOrigin("https://assignforce.revaturecf.com");
 		config.setAllowedHeaders(Arrays.asList("authorization", "content-type"));
 		config.setAllowedMethods(Arrays.asList("GET", "POST","PUT", "DELETE","OPTIONS","HEAD", "PATCH"));
 		source.registerCorsConfiguration("/**", config);

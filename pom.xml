@@ -1,6 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.assignforce</groupId>
 	<artifactId>GatewayServer</artifactId>
@@ -23,8 +23,8 @@
 	</parent>
 	<dependencies>
 		<!--<dependency>-->
-		<!--<groupId>io.pivotal.spring.cloud</groupId>-->
-		<!--<artifactId>spring-cloud-services-starter-config-client</artifactId>-->
+			<!--<groupId>io.pivotal.spring.cloud</groupId>-->
+			<!--<artifactId>spring-cloud-services-starter-config-client</artifactId>-->
 		<!--</dependency>-->
 		<dependency>
 			<groupId>io.pivotal.spring.cloud</groupId>
@@ -41,9 +41,9 @@
 			<version>0.5.0</version>
 		</dependency>
 		<!--<dependency>-->
-		<!--<groupId>org.springframework.cloud</groupId>-->
-		<!--<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>-->
-		<!--<version>2.0.0.RELEASE</version>-->
+			<!--<groupId>org.springframework.cloud</groupId>-->
+			<!--<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>-->
+			<!--<version>2.0.0.RELEASE</version>-->
 		<!--</dependency>-->
 
 		<dependency>
@@ -102,28 +102,6 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.12</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<scope>test</scope>
-		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/org.mockito/mockito-all -->
-		<!-- https://mvnrepository.com/artifact/org.mockito/mockito-all -->
-		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-all</artifactId>
-			<version>1.10.7</version>
-			<scope>test</scope>
-		</dependency>
-
-
 	</dependencies>
 	<build>
 		<finalName>gateway-service</finalName>
