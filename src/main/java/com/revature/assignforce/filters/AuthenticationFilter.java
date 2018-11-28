@@ -22,6 +22,7 @@ import org.springframework.stereotype.Component;
 public class AuthenticationFilter extends ZuulFilter {
 
 	private static Logger logger = LoggerFactory.getLogger(AuthenticationFilter.class);
+
     private static final String TRAINER_EDITABLE = "trainer-service";
 	private static final String AUDIENCE = "hydra-gateway";
 	private static final String ISSUER = "https://revature.auth0.com/";
