@@ -5,3 +5,4 @@ applications:
     timeout: 120
     services:
       - discovery-rev
+      - rabbit-mq-rev

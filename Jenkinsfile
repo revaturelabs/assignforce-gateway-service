@@ -5,6 +5,7 @@ pipeline {
         IMG_NAME="af-gateway"
         PROD_DOM="revaturecf.com"
         DEV_DOM="cfapps.io"
+        CF_ORG="'Revature Training'"
     }
 
     stages {
@@ -154,7 +155,7 @@ pipeline {
                             env.DOMAIN="${env.DEV_DOM}"
                         }
                         env.CF_DOCKER_PASSWORD=readFile("/run/secrets/CF_DOCKER_PASSWORD").trim()
-                        sh "cf target -s ${env.SPACE}"
+                        sh "cf target -o ${env.CF_ORG} -s ${env.SPACE}"
                         sh "cf push -o ${env.IMG} --docker-username ${env.DK_U} --no-start -d ${env.DOMAIN}"
                         sh "cf set-env ${env.APP_NAME} SPRING_PROFILES_ACTIVE ${env.PROFILE}"
                         sh "cf start ${env.APP_NAME}"
