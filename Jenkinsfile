@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        IMG_NAME="assignforce/gateway"
+        IMG_NAME="assignforce-gateway"
         REPO="ajduet/"
     }
 
