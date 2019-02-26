@@ -1,8 +1,8 @@
 pipeline {
     agent any
     environment {
-        IMG_NAME="assignforce-gateway"
-        REPO="ajduet/"
+        IMG_NAME="assignforce/gateway"
+        REPO="367484709954.dkr.ecr.us-east-1.amazonaws.com"
     }
 
     stages {
@@ -14,7 +14,8 @@ pipeline {
                         env.DEBUG_BLD = 1;
                     }
 
-                    sh '/opt/login.sh'
+                    sh 'LOGIN=$(aws ecr get-login --no-include-email --region us-east-1 && \
+                        $LOGIN'
                 }
             }
         }
@@ -96,7 +97,7 @@ pipeline {
 
                         //this may have to replace dockerfile:tag
                         sh "docker build -t ${IMG_NAME} ."
-                        sh "docker tag ${env.IMG_NAME} ${env.REPO}${env.IMG_NAME}:${env.DK_TAG}"
+                        sh "docker tag ${env.IMG_NAME} ${env.REPO}/${env.IMG_NAME}:${env.DK_TAG}"
                     } catch(Exception e) {
                         env.FAIL_STG='Docker Build'
                         currentBuild.result='FAILURE'
@@ -123,7 +124,7 @@ pipeline {
                         sh "docker login -u ${env.DK_U} -p ${env.DK_P}"
 
                         sh "echo push"
-                        sh "docker push ${REPO}${IMG_NAME}"
+                        sh "docker push ${REPO}/${IMG_NAME}:${env.DK_TAG}"
                         sh "echo remove local image; docker image rm ${env.REPO}/${env.IMG_NAME}:${env.DK_TAG}"
                     } catch(Exception e) {
                         env.FAIL_STG='Docker Archive'
