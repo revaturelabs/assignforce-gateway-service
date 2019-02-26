@@ -117,11 +117,11 @@ pipeline {
             steps {
                 script {
                     try {
-                        env.DK_U=$(cat /opt/dk_auth | cut -d':' -f1)
-                        env.DK_P=$(cat /opt/dk_auth | cut -d':' -f2)
+                        env.DK_U=readFile(cat /opt/dk_auth).split(':')[0]
+                        env.DK_P=readFile(cat /opt/dk_auth).split(':')[1]
 
                         sh "docker login -u ${env.DK_U} -p ${env.DK_P}
-                        
+
                         sh "echo push"
                         sh "docker push ${REPO}${IMG_NAME}"
                         sh "echo remove local image; docker image rm ${env.REPO}/${env.IMG_NAME}:${env.DK_TAG}"
