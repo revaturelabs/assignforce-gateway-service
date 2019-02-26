@@ -1,8 +1,8 @@
 pipeline {
     agent any
     environment {
-        IMG_NAME="/assignforce/gateway"
-        REPO="ajduet"
+        IMG_NAME="assignforce/gateway"
+        REPO="ajduet/"
     }
 
     stages {
