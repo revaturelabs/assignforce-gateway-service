@@ -117,8 +117,8 @@ pipeline {
             steps {
                 script {
                     try {
-                        env.DK_U=readFile(cat /opt/dk_auth).split(':')[0]
-                        env.DK_P=readFile(cat /opt/dk_auth).split(':')[1]
+                        env.DK_U=readFile(/opt/dk_auth).split(':')[0]
+                        env.DK_P=readFile(/opt/dk_auth).split(':')[1]
 
                         sh "docker login -u ${env.DK_U} -p ${env.DK_P}"
 
