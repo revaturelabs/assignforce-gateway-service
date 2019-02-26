@@ -1,11 +1,8 @@
 pipeline {
     agent any
     environment {
-        APP_NAME="rev-gateway"
-        IMG_NAME="af-gateway"
-        PROD_DOM="revaturecf.com"
-        DEV_DOM="cfapps.io"
-        CF_ORG="'Revature Training'"
+        IMG_NAME="/assignforce/gateway"
+        REPO="ajduet"
     }
 
     stages {
@@ -90,17 +87,15 @@ pipeline {
             steps {
                 script {
                     try {
-                        env.DK_U=readFile("/opt/dk_auth").trim().split(':')[0]
-                        env.DK_TAG_GOAL='tag-latest'
                         env.DK_TAG='latest'
 
                         if(env.BRANCH_NAME == 'development' || env.DEBUG_BLD == '1') {
-                            env.DK_TAG_GOAL='tag-dev'
                             env.DK_TAG='dev-latest'
                         }
                         sh "echo run docker build"
                         //this may have to replace dockerfile:tag
-                        sh "mvn dockerfile:build@${env.DK_TAG_GOAL}"
+                        sh "docker build -t ${IMG_NAME}"
+                        sh "docker tag ${env.IMG_NAME} ${env.REPO}${env.IMG_NAME}:${env.DK_TAG}"
                     } catch(Exception e) {
                         env.FAIL_STG='Docker Build'
                         currentBuild.result='FAILURE'
@@ -121,46 +116,11 @@ pipeline {
             steps {
                 script {
                     try {
-                        sh "echo push; mvn dockerfile:push"
-                        sh "echo remove local image; docker image rm ${env.DK_U}/${env.IMG_NAME}:${env.DK_TAG}"
+                        sh "echo push"
+                        sh "docker push ${REPO}${IMG_NAME}"
+                        sh "echo remove local image; docker image rm ${env.REPO}/${env.IMG_NAME}:${env.DK_TAG}"
                     } catch(Exception e) {
                         env.FAIL_STG='Docker Archive'
-                        currentBuild.result='FAILURE'
-                        throw e
-                    }
-                }
-            }
-        }
-
-        stage('CF Push') {
-            when {
-                anyOf {
-                    branch 'master'
-                    branch 'development'
-                    environment name: 'DEBUG_BLD', value: '1'
-                }
-            }
-            steps {
-                script {
-                    try {
-                        if(env.BRANCH_NAME == 'master') {
-                            env.SPACE = "master"
-                            env.IMG="${env.DK_U}/${env.IMG_NAME}:latest"
-                            env.PROFILE="master"
-                            env.DOMAIN="${env.PROD_DOM}"
-                        } else if(env.BRANCH_NAME == 'development' || env.DEBUG_BLD == '1') {
-                            env.SPACE = "development"
-                            env.IMG="${env.DK_U}/${env.IMG_NAME}:dev-latest"
-                            env.PROFILE="development"
-                            env.DOMAIN="${env.DEV_DOM}"
-                        }
-                        env.CF_DOCKER_PASSWORD=readFile("/run/secrets/CF_DOCKER_PASSWORD").trim()
-                        sh "cf target -o ${env.CF_ORG} -s ${env.SPACE}"
-                        sh "cf push -o ${env.IMG} --docker-username ${env.DK_U} --no-start -d ${env.DOMAIN}"
-                        sh "cf set-env ${env.APP_NAME} SPRING_PROFILES_ACTIVE ${env.PROFILE}"
-                        sh "cf start ${env.APP_NAME}"
-                    } catch(Exception e) {
-                        env.FAIL_STG="PCF Deploy"
                         currentBuild.result='FAILURE'
                         throw e
                     }
