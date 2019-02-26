@@ -93,6 +93,7 @@ pipeline {
                             env.DK_TAG='dev-latest'
                         }
                         sh "echo run docker build"
+
                         //this may have to replace dockerfile:tag
                         sh "docker build -t ${IMG_NAME} ."
                         sh "docker tag ${env.IMG_NAME} ${env.REPO}${env.IMG_NAME}:${env.DK_TAG}"
@@ -116,6 +117,11 @@ pipeline {
             steps {
                 script {
                     try {
+                        env.DK_U=$(cat /opt/dk_auth | cut -d':' -f1)
+                        env.DK_P=$(cat /opt/dk_auth | cut -d':' -f2)
+
+                        sh "docker login -u ${env.DK_U} -p ${env.DK_P}
+                        
                         sh "echo push"
                         sh "docker push ${REPO}${IMG_NAME}"
                         sh "echo remove local image; docker image rm ${env.REPO}/${env.IMG_NAME}:${env.DK_TAG}"
