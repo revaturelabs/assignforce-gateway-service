@@ -94,7 +94,7 @@ pipeline {
                         }
                         sh "echo run docker build"
                         //this may have to replace dockerfile:tag
-                        sh "docker build -t ${IMG_NAME}"
+                        sh "docker build -t ${IMG_NAME} ."
                         sh "docker tag ${env.IMG_NAME} ${env.REPO}${env.IMG_NAME}:${env.DK_TAG}"
                     } catch(Exception e) {
                         env.FAIL_STG='Docker Build'
