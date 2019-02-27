@@ -16,7 +16,6 @@ import org.springframework.web.filter.CorsFilter;
 
 @SpringBootApplication
 @EnableZuulProxy
-@EnableDiscoveryClient
 @EnableWebSecurity
 public class GatewayServerApplication {
 	
