@@ -67,7 +67,7 @@ pipeline {
                 script {
                     try {
                         sh "echo run mvn package -DskipTests"
-                        sh "mvn install -DskipTests"
+                        sh "mvn package -DskipTests"
                     } catch(Exception e) {
                         env.FAIL_STG='Maven Build'
                         currentBuild.result='FAILURE'
@@ -96,7 +96,7 @@ pipeline {
                         sh "echo run docker build"
 
                         //this may have to replace dockerfile:tag
-                        sh "docker build -t ${IMG_NAME} ."
+                        sh "docker build -t ${IMG_NAME} --build-arg JAR_FILE=target/*.jar ."
                         sh "docker tag ${env.IMG_NAME} ${env.REPO}/${env.IMG_NAME}:${env.DK_TAG}"
                     } catch(Exception e) {
                         env.FAIL_STG='Docker Build'
@@ -142,11 +142,6 @@ pipeline {
         }
     }
     post {
-        always {
-            script {
-                sh 'cf logout'
-            }
-        }
         success {
             script {
                 slackSend color: "good", message: "Build Succeeded: ${env.JOB_NAME} ${env.BUILD_NUMBER}"
