@@ -16,7 +16,6 @@ import org.springframework.web.filter.CorsFilter;
 
 @SpringBootApplication
 @EnableZuulProxy
-@EnableDiscoveryClient
 @EnableWebSecurity
 public class GatewayServerApplication {
 	
@@ -30,8 +29,9 @@ public class GatewayServerApplication {
 		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		final CorsConfiguration config = new CorsConfiguration();
 		config.setAllowCredentials(true);
-		config.addAllowedOrigin("https://assignforce.cfapps.io");
-		config.addAllowedOrigin("https://assignforce.revaturecf.com");
+		config.addAllowedOrigin("https://assignforce2.revaturelabs.com");
+		config.addAllowedOrigin("https://dev2.assignforce.revaturelabs.com");
+		config.addAllowedOrigin("https://assignforce.revaturelabs.com");
 		config.setAllowedHeaders(Arrays.asList("authorization", "content-type"));
 		config.setAllowedMethods(Arrays.asList("GET", "POST","PUT", "DELETE","OPTIONS","HEAD", "PATCH"));
 		source.registerCorsConfiguration("/**", config);

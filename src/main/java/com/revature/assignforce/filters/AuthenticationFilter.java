@@ -68,7 +68,9 @@ public class AuthenticationFilter extends ZuulFilter {
         	        	
         	boolean requireSVP = true;
         	
-        	if (request.getMethod().equals("GET") || request.getMethod().equals("OPTIONS") || request.getRequestURL().toString().contains(TRAINER_EDITABLE)) {
+        	if (request.getMethod().equals("GET") || request.getMethod().equals("OPTIONS")
+					|| request.getRequestURL().toString().contains(TRAINER_EDITABLE))
+        	{
 				logger.warn("Request doesn't require SVP");
 				requireSVP = false;
         	} 
