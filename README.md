@@ -1,0 +1,2 @@
+# assignforce-gateway-service
+![Build Status](https://codebuild.us-east-1.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoiV1BqeklBMlZ5K0pZUlRPYmw0ZGVTSTZYUkNQeWxFMnFsT0JITmt4bzNJeitSM2ZIaDZVVGJ3eEhkLzJrUTh3d25XbWVVME1UT0c3VXhxRk96S2lqM2F3PSIsIml2UGFyYW1ldGVyU3BlYyI6IjQvTHNjT3JFWjA2N0NuWUQiLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=development)
