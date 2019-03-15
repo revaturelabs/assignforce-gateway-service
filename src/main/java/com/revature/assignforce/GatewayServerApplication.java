@@ -31,7 +31,9 @@ public class GatewayServerApplication {
 		config.setAllowCredentials(true);
 		config.addAllowedOrigin("https://assignforce2.revaturelabs.com");
 		config.addAllowedOrigin("https://dev2.assignforce.revaturelabs.com");
+		config.addAllowedOrigin("https://dev.api.assignforce.revaturelabs.com");
 		config.addAllowedOrigin("https://assignforce.revaturelabs.com");
+		config.addAllowedOrigin("https://api.assignforce.revaturelabs.com");
 		config.setAllowedHeaders(Arrays.asList("authorization", "content-type"));
 		config.setAllowedMethods(Arrays.asList("GET", "POST","PUT", "DELETE","OPTIONS","HEAD", "PATCH"));
 		source.registerCorsConfiguration("/**", config);
