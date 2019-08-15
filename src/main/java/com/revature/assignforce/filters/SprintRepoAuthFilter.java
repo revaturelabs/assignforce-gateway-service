@@ -17,7 +17,7 @@ public class SprintRepoAuthFilter extends ZuulFilter
 	@Override
 	public String filterType()
 	{
-		return "post"; // apply filter after response has been generated.
+		return "pre"; // apply filter after response has been generated.
 	}
 
 	@Override
