@@ -7,6 +7,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,12 +18,18 @@ import org.springframework.web.filter.CorsFilter;
 @SpringBootApplication
 @EnableZuulProxy
 @EnableWebSecurity
+@ComponentScan
 public class GatewayServerApplication {
-	
+
 	public static void main(String[] args) throws Exception {
 		new SpringApplicationBuilder(GatewayServerApplication.class).run(args);
 	}
 
+	/**
+	 * Configures cors properties.
+	 * 
+	 * @return
+	 */
 	@Bean
 	public CorsFilter cors() {
 		System.out.println("USING YOUR CORS FILTER");
@@ -35,7 +42,7 @@ public class GatewayServerApplication {
 		config.addAllowedOrigin("https://assignforce.revaturelabs.com");
 		config.addAllowedOrigin("https://api.assignforce.revaturelabs.com");
 		config.setAllowedHeaders(Arrays.asList("authorization", "content-type"));
-		config.setAllowedMethods(Arrays.asList("GET", "POST","PUT", "DELETE","OPTIONS","HEAD", "PATCH"));
+		config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD", "PATCH"));
 		source.registerCorsConfiguration("/**", config);
 		return new CorsFilter(source);
 	}
