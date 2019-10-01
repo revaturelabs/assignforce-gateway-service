@@ -18,6 +18,7 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger.web.SwaggerResource;
 import springfox.documentation.swagger.web.SwaggerResourcesProvider;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  * Designed to collect the documentation from all services in order to display.
@@ -28,6 +29,7 @@ import springfox.documentation.swagger.web.SwaggerResourcesProvider;
 @Component
 @Primary
 @EnableAutoConfiguration
+@EnableSwagger2
 public class DocumentationController implements SwaggerResourcesProvider {
 	
 	/**
