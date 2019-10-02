@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: gateway-service
+  profiles:
+    active: ${PROFILE:default}
+  cloud:
+    config:
+      uri: ${CONFIG_URL:http://localhost:8888}
+      name: gateway-service
+      profile: ${PROFILE}
+
+info:
+  component: Zuul Server
+  description: Assignforce Zuul Server
+auth0:
+  issuer: https://revature.auth0.com
+  audience: hydra-gateway
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+logging:
+  level:
+    com:
+      revature:
+        assignforce: INFO
+ribbon:
+  eager-load:
+    enabled: true
+  ReadTimeout: 30000
+  ConnectTimeout: 30000
