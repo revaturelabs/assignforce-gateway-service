@@ -49,7 +49,7 @@ public class AuthenticationFilter extends ZuulFilter {
 		RequestContext ctx = RequestContext.getCurrentContext();
 		HttpServletRequest req = ctx.getRequest();
 
-		if (req.getMethod().equals("OPTIONS")) {
+		if (req.getMethod().equals("OPTIONS") || req.getMethod().equals("GET")) {
 			return false;
 		}
 		return true;
