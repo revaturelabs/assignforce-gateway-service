@@ -17,13 +17,13 @@ import org.slf4j.Logger;
 import org.springframework.stereotype.Component;
 @Component
 public class AuthenticationFilter extends ZuulFilter {
-    private static Logger logger = LoggerFactory.getLogger(AuthenticationFilter.class);
-    private static final String TRAINER_EDITABLE = "trainer-service";
-    private static final String AUDIENCE = "hydra-gateway";
-    private static final String ISSUER = "https://revature.auth0.com/";
-    private static final String PUBLIC_KEY_LOCATION = "https://cognito-idp.us-east-2.amazonaws.com/us-east-2_emWMUf9hB/.well-known/jwks.json";
-    //private static final String KID = "NkM1NzcyMEUxMzlCNzA5RTk1QkZDMDJGNUVDNjg2MEE0RTg3MTM4Mw";
-    private static final String KID = "hu9Nh36cW2lHl2kSK/MjrMuiygJmKPdgoht0/GeL7tM=";
+	private static Logger logger = LoggerFactory.getLogger(AuthenticationFilter.class);
+	private static final String TRAINER_EDITABLE = "trainer-service";
+    //private static final String AUDIENCE = "hydra-gateway";
+    //private static final String ISSUER = "https://revature.auth0.com/";
+    private static final String PUBLIC_KEY_LOCATION = "https://cognito-idp.us-east-1.amazonaws.com/us-east-1_hE8EafqgV/.well-known/jwks.json";
+    //private static final String KID = "NkM1NzcyMEUxMzlCNzA5RTk1QkZDMDJGNUVDNjg2MEE0RTg3MTM4Mw"; //Auth0
+    private static final String KID = "ci//JbT7yfLoVz4M3dW97G5nuN62wQojW8DlJ+MFJoQ=";
     private static final String HEADER_STRING = "Authorization";
     private static final String TOKEN_PREFIX = "Bearer ";
     //private static final String SVP = "SVP of Technology";
