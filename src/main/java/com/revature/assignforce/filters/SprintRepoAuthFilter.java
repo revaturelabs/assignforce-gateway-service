@@ -10,34 +10,34 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 @Component
-public class SprintRepoAuthFilter extends ZuulFilter
-{
+public class SprintRepoAuthFilter extends ZuulFilter {
+
+	/**
+	 * Apply filter after response has been generated.
+	 */
 	@Override
-	public String filterType()
-	{
-		return "post"; // apply filter after response has been generated.
+	public String filterType() {
+		return "post";
 	}
 
 	@Override
-	public int filterOrder()
-	{
+	public int filterOrder() {
 		return 0;
 	}
 
+	/**
+	 * Checks whether a request should be filtered, based on whether the request's
+	 * cookies match the Authorization Token.
+	 */
 	@Override
-	public boolean shouldFilter()
-	{
+	public boolean shouldFilter() {
 		RequestContext ctx = RequestContext.getCurrentContext();
 		HttpServletRequest req = ctx.getRequest();
 
-		if(req.getMethod().equals("GET"))
-		{
-			for(Cookie c: req.getCookies())
-			{
-				if(c.getName().equals("SprintRepoAuthToken"))
-				{
+		if (req.getMethod().equals("GET")) {
+			for (Cookie c : req.getCookies()) {
+				if (c.getName().equals("SprintRepoAuthToken")) {
 					return false;
 				}
 			}
@@ -45,20 +45,27 @@ public class SprintRepoAuthFilter extends ZuulFilter
 		return true;
 	}
 
+	/**
+	 * Adds a cookie to the response, allowing it to bypass the filter later.
+	 */
 	@Override
-	public Object run()
-	{
+	public Object run() {
 		RequestContext ctx = RequestContext.getCurrentContext();
 		HttpServletResponse response = ctx.getResponse();
-		response.addCookie(new Cookie("SprintRepoAuthToken",sprintRepoAuthToken));
+		response.addCookie(new Cookie("SprintRepoAuthToken", sprintRepoAuthToken));
 
 		return null;
 	}
+
 	@Value("${client.sprintRepoAuthToken}")
 	private String sprintRepoAuthToken;
 
-	void setSprintToken(String token)
-	{
+	/**
+	 * Sets the Authorization token,
+	 * 
+	 * @param token
+	 */
+	void setSprintToken(String token) {
 		sprintRepoAuthToken = token;
 	}
 }
