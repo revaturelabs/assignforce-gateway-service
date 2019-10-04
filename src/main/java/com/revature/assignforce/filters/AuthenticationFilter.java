@@ -37,6 +37,10 @@ public class AuthenticationFilter extends ZuulFilter {
     public int filterOrder() {
         return 1;
     }
+  
+  	/**
+	 * Checks whether a request should be filtered.
+	 */
     @Override
     public boolean shouldFilter() {
         RequestContext ctx = RequestContext.getCurrentContext();
@@ -46,6 +50,10 @@ public class AuthenticationFilter extends ZuulFilter {
         }
         return true;
     }
+  
+  	/**
+	 * Responsible for checking whether a request is authorized.
+	 */
     @Override
     public Object run() {
         System.out.println("Starting Auth Filter");
@@ -78,6 +86,14 @@ public class AuthenticationFilter extends ZuulFilter {
         }
         return null;
     }
+  
+  	/**
+	 * Checks authorization clearance..
+	 * 
+	 * @param token
+	 * @param requireSVP
+	 * @return
+	 */
     @SuppressWarnings("unchecked")
     private static boolean authenticate(String token, boolean requireSVP) {
         
@@ -114,6 +130,12 @@ public class AuthenticationFilter extends ZuulFilter {
         return !error;
     }
     
+  	/**
+	 * Sets a 403: forbidden response, and logs unauthorized entry attempt.
+	 * 
+	 * @param ctx
+	 * @param message
+	 */
     private static void forbidden(RequestContext ctx, String message) {
         logger.warn("Request not allowed " + message);
         ctx.setResponseStatusCode(403);
