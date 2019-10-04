@@ -53,21 +53,14 @@ public class DocumentationController implements SwaggerResourcesProvider {
 	@Override
 	public List<SwaggerResource> get() {
 		List<SwaggerResource> resources = new ArrayList<SwaggerResource>();
-		resources.add(swaggerResource("trainerController", "/api/trainer/v2/api-docs", "2.0"));
-		resources.add(swaggerResource("settingController", "/api/setting/v2/api-docs", "2.0"));
-		resources.add(swaggerResource("unavailableController", "/api/unavailable/v2/api-docs", "2.0"));
-		resources.add(swaggerResource("filehandlerController", "/api/filehandler/v2/api-docs", "2.0"));
-		resources.add(swaggerResource("finalProjectController", "/api/finalProject/v2/api-docs", "2.0"));
-		resources.add(swaggerResource("sprintService", "/api/sprint/v2/api-docs", "2.0"));
-		resources.add(swaggerResource("skillController", "/api/skill/v2/api-docs", "2.0"));
-		resources.add(swaggerResource("focusController", "/api/focus/v2/api-docs", "2.0"));
-		resources.add(swaggerResource("curriculumController", "/api/curriculum/v2/api-docs", "2.0"));
-		resources.add(swaggerResource("roomController", "/api/room/v2/api-docs", "2.0"));
-		resources.add(swaggerResource("eventController", "/api/event/v2/api-docs", "2.0"));
-		resources.add(swaggerResource("locationController", "/api/location/v2/api-docs", "2.0"));
+		resources.add(swaggerResource("Trainer Service", "/api/trainer-service/v2/api-docs", "2.0"));
+		resources.add(swaggerResource("Setting Service", "/api/setting-service/v2/api-docs", "2.0"));
+		resources.add(swaggerResource("Filehandler Service", "/api/filehandler-service/v2/api-docs", "2.0"));
+		resources.add(swaggerResource("Skill Service", "/api/skill-service/v2/api-docs", "2.0"));
+		resources.add(swaggerResource("Curriculum Servive", "/api/curriculum-service/v2/api-docs", "2.0"));
+		resources.add(swaggerResource("Location Service", "/api/location-service/v2/api-docs", "2.0"));
 		resources.add(swaggerResource("buildingController", "/api/building/v2/api-docs", "2.0"));
-		resources.add(swaggerResource("batchController", "/api/batch/v2/api-docs", "2.0"));
-		resources.add(swaggerResource("addressController", "/api/address/v2/api-docs", "2.0"));
+		resources.add(swaggerResource("Batch Service", "/api/batch-service/v2/api-docs", "2.0"));
 		return resources;
 	}
 

@@ -1,3 +1,4 @@
+
 package com.revature.assignforce.filters;
 import java.security.interfaces.RSAPublicKey;
 import java.util.ArrayList;
@@ -45,9 +46,10 @@ public class AuthenticationFilter extends ZuulFilter {
     public boolean shouldFilter() {
         RequestContext ctx = RequestContext.getCurrentContext();
         HttpServletRequest req = ctx.getRequest();
-        if(req.getMethod().equals("OPTIONS")) {
-            return false;
-        }
+        if (req.getMethod().equals("OPTIONS") || req.getRequestURI().toLowerCase().contains("v2/api-docs")
+				|| req.getRequestURI().toLowerCase().contains("swagger-ui")) {
+			return false;
+		}
         return true;
     }
   
