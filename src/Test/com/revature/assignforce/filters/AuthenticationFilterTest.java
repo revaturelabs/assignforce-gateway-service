@@ -5,6 +5,10 @@ import com.revature.assignforce.filters.AuthenticationFilter;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
+import org.mockito.Mockito;
+
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import org.mockito.MockitoAnnotations;
@@ -56,4 +60,26 @@ public class AuthenticationFilterTest
         when(httpServletRequest.getMethod()).thenReturn("POST");
         filter.run();
     }
+    
+    @Test
+    public void filterTypeTest() {
+    	//when(filter.filterType()).thenReturn("pre");
+    	assertEquals("pre", filter.filterType());
+    }
+    
+    @Test
+    public void filterOrderTest() {
+    	assertEquals(1, filter.filterOrder());
+    }
+    
+    @Test
+    public void shouldFilterTest() {
+    	RequestContext requestContext = mock(RequestContext.class);
+    	RequestContext.testSetCurrentContext(requestContext);
+    	HttpServletRequest req = mock(HttpServletRequest.class);
+    	
+    	when(req.getMethod()).thenReturn("OPTIONS");
+    }
+    
+    
 }
