@@ -19,14 +19,10 @@ import org.springframework.stereotype.Component;
 public class AuthenticationFilter extends ZuulFilter {
 	private static Logger logger = LoggerFactory.getLogger(AuthenticationFilter.class);
 	private static final String TRAINER_EDITABLE = "trainer-service";
-    //private static final String AUDIENCE = "hydra-gateway";
-    //private static final String ISSUER = "https://revature.auth0.com/";
     private static final String PUBLIC_KEY_LOCATION = "https://cognito-idp.us-east-1.amazonaws.com/us-east-1_hE8EafqgV/.well-known/jwks.json";
-    //private static final String KID = "NkM1NzcyMEUxMzlCNzA5RTk1QkZDMDJGNUVDNjg2MEE0RTg3MTM4Mw"; //Auth0
     private static final String KID = "ci//JbT7yfLoVz4M3dW97G5nuN62wQojW8DlJ+MFJoQ=";
     private static final String HEADER_STRING = "Authorization";
     private static final String TOKEN_PREFIX = "Bearer ";
-    //private static final String SVP = "SVP of Technology";
     private static final String SVP = "svp";
     
     @Override
@@ -37,7 +33,7 @@ public class AuthenticationFilter extends ZuulFilter {
     public int filterOrder() {
         return 1;
     }
-  
+
   	/**
 	 * Checks whether a request should be filtered.
 	 */
@@ -50,8 +46,8 @@ public class AuthenticationFilter extends ZuulFilter {
         }
         return true;
     }
-  
-  	/**
+    
+    /**
 	 * Responsible for checking whether a request is authorized.
 	 */
     @Override
@@ -86,8 +82,8 @@ public class AuthenticationFilter extends ZuulFilter {
         }
         return null;
     }
-  
-  	/**
+    
+    /**
 	 * Checks authorization clearance..
 	 * 
 	 * @param token
@@ -100,15 +96,12 @@ public class AuthenticationFilter extends ZuulFilter {
         boolean error = false;
         
         try {
-            //com.auth0.jwk.
             JwkProvider provider = new UrlJwkProvider(PUBLIC_KEY_LOCATION);
             Jwk jwk = provider.get(KID);
-            //Verification ver = JWT.require(Algorithm.RSA256((RSAPublicKey) jwk.getPublicKey(), null)).withIssuer(ISSUER).withAudience(AUDIENCE);
             
             Verification ver = JWT.require(Algorithm.RSA256((RSAPublicKey) jwk.getPublicKey(), null));
             
             DecodedJWT parsed = ver.build().verify(token);
-            //String[] roles = parsed.getClaim("https://revature.com/roles").asArray(String.class);
             String[] roles = parsed.getClaim("username").asArray(String.class);
             
             if (requireSVP)  {
@@ -130,7 +123,7 @@ public class AuthenticationFilter extends ZuulFilter {
         return !error;
     }
     
-  	/**
+    /**
 	 * Sets a 403: forbidden response, and logs unauthorized entry attempt.
 	 * 
 	 * @param ctx
