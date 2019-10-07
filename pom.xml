@@ -138,6 +138,41 @@
 					</execution>
 				</executions>
 			</plugin>
+			<!-- https://mvnrepository.com/artifact/com.github.kongchen/swagger-maven-plugin -->
+			<plugin>
+				<groupId>com.github.kongchen</groupId>
+				<artifactId>swagger-maven-plugin</artifactId>
+				<version>3.1.5</version>
+				<configuration>
+					<apiSources>
+						<apiSource>
+							<schemes>http,https</schemes>
+							<basePath>/</basePath>
+							<locations>
+								<location>com.revature.assignforce.swagger</location>
+							</locations>
+							<info>
+								<title>${project.name}</title>
+								<description>Handles Zuul, connects to the other services.</description>
+								<contact>
+									<name>August Duet
+									</name>
+									<email>august@revature.com</email>
+								</contact>
+								<version>${project.version}</version>
+							</info>
+							<swaggerApiReader>com.github.kongchen.swagger.docgen.reader.SpringMvcApiReader</swaggerApiReader>
+							<swaggerDirectory>${project.build.directory}/swagger-ui</swaggerDirectory>
+							<!-- Do not use: swaggerFileName, as it will be used as classifier. 
+								In a multi-module project will have different classifier for different APIs -->
+							<outputFormats>json</outputFormats>
+							<attachSwaggerArtifact>true</attachSwaggerArtifact>
+						</apiSource>
+					</apiSources>
+				</configuration>
+				<!-- <executions> <execution> <phase>compile</phase> <goals> <goal>generate</goal> 
+					</goals> </execution> </executions>  -->      
+			</plugin>
 		</plugins>
 	</build>
 
