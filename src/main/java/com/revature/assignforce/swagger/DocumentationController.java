@@ -42,7 +42,7 @@ public class DocumentationController implements SwaggerResourcesProvider {
 	public Docket api() {
 		return new Docket(DocumentationType.SWAGGER_2).select().apis(RequestHandlerSelectors.any())
 				.paths(PathSelectors.any()).build()
-				.apiInfo(new ApiInfo("Gateway-Service", "Handles Zuul, connecting to the other services.", null, null,
+				.apiInfo(new ApiInfo("Gateway-Service", "Handles Zuul, connects to the other services.", null, null,
 						new Contact("August Duet", null, "august@revature.com"), null, null,
 						Collections.emptyList())).enable(true);
 	}
@@ -59,7 +59,6 @@ public class DocumentationController implements SwaggerResourcesProvider {
 		resources.add(swaggerResource("Skill Service", "/api/skill-service/v2/api-docs", "2.0"));
 		resources.add(swaggerResource("Curriculum Servive", "/api/curriculum-service/v2/api-docs", "2.0"));
 		resources.add(swaggerResource("Location Service", "/api/location-service/v2/api-docs", "2.0"));
-		resources.add(swaggerResource("buildingController", "/api/building/v2/api-docs", "2.0"));
 		resources.add(swaggerResource("Batch Service", "/api/batch-service/v2/api-docs", "2.0"));
 		return resources;
 	}
