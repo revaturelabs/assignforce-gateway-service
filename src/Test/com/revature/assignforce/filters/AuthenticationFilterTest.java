@@ -59,6 +59,7 @@ public class AuthenticationFilterTest
         when(httpServletRequest.getRequestURL()).thenReturn(buffer);
         when(httpServletRequest.getMethod()).thenReturn("POST");
         filter.run();
+        System.out.println(httpServletRequest.getHeader(HEADER_STRING));
     }
     
     @Test
