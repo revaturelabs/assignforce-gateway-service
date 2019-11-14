@@ -68,20 +68,6 @@ public class AuthenticationFilter extends ZuulFilter {
             if (token.startsWith(TOKEN_PREFIX)) {
                 token = token.substring(TOKEN_PREFIX.length());
             }
-                        
-            boolean requireSVP = true;
-            
-            if (request.getMethod().equals("GET") || request.getMethod().equals("OPTIONS")
-                    || request.getRequestURL().toString().contains(TRAINER_EDITABLE))
-            {
-                logger.warn("Request doesn't require SVP");
-                requireSVP = false;
-            } 
-            
-            if (!authenticate(token, requireSVP)) {
-                logger.warn("not auth");
-                forbidden(ctx, "Unauthorized");
-            }
         } else {
             logger.warn("No Auth");
             forbidden(ctx, "No Authorization");       
